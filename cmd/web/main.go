@@ -20,12 +20,12 @@ type contextKey string
 const contextKeyIsAuthenticated = contextKey("isAuthenticated")
 
 type application struct {
-	debug    bool // Add a new debug field.
+	debug    bool
 	errorLog *log.Logger
 	infoLog  *log.Logger
 	session  *sessions.Session
 	snippets interface {
-		Insert(string, string, string) (int, error)
+		Insert(string, string, string, string, string) (int, error)
 		Get(int) (*models.Snippet, error)
 		Latest() ([]*models.Snippet, error)
 	}
@@ -40,9 +40,8 @@ type application struct {
 
 func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
-	// Create a new debug flag with the default value of false.
 	debug := flag.Bool("debug", false, "Enable debug mode")
-	dsn := flag.String("dsn", "web:HQDbino362.@/snippetbox?parseTime=true", "MySQL data source name")
+	dsn := flag.String("dsn", "web:HQDbino362.@/books?parseTime=true", "MySQL data source name")
 	secret := flag.String("secret", "s6Ndh+pPbnzHbS*+9Pk8qGWhTzbpa@ge", "Secret key")
 	flag.Parse()
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)

@@ -16,11 +16,13 @@ var (
 )
 
 type Snippet struct {
-	ID      int
-	Title   string
-	Content string
-	Created time.Time
-	Expires time.Time
+	ID         int
+	Title      string
+	Author     string
+	Year       string
+	Genre      string
+	Annotation string
+	Created    time.Time
 }
 
 // Define a new User type. Notice how the field names and types align

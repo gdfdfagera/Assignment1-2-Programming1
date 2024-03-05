@@ -10,9 +10,6 @@ import (
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	// Because Pat matches the "/" path exactly, we can now remove the manual check
-	// Because Pat matches the "/" path exactly, we can now remove the manual check
-	// of r.URL.Path != "/" from this handler.
 	s, err := app.snippets.Latest()
 	if err != nil {
 		app.serverError(w, err)
@@ -46,7 +43,6 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "create.page.html", &templateData{
-		// Pass a new empty forms.Form object to the template.
 		Form: forms.New(nil),
 	})
 }
@@ -58,24 +54,19 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	form := forms.New(r.PostForm)
-	form.Required("title", "content", "expires")
+	form.Required("title", "author", "year", "genre", "annotation")
 	form.MaxLength("title", 100)
-	form.PermittedValues("expires", "365", "7", "1")
 	if !form.Valid() {
 		app.render(w, r, "create.page.html", &templateData{Form: form})
 		return
 	}
-	id, err := app.snippets.Insert(form.Get("title"), form.Get("content"), form.Get("expires"))
+	id, err := app.snippets.Insert(form.Get("title"), form.Get("author"), form.Get("year"), form.Get("genre"), form.Get("annotation"))
 	if err != nil {
 		app.serverError(w, err)
+		fmt.Println("No")
 		return
 	}
-	// Use the Put() method to add a string value ("Your snippet was saved
-	// successfully!") and the corresponding key ("flash") to the session
-	// data. Note that if there's no existing session for the current user
-	// (or their session has expired) then a new, empty, session for them
-	// will automatically be created by the session middleware.
-	app.session.Put(r, "flash", "Snippet successfully created!")
+	app.session.Put(r, "flash", "Book successfully created!")
 	http.Redirect(w, r, fmt.Sprintf("/snippet/%d", id), http.StatusSeeOther)
 }
 
@@ -101,8 +92,6 @@ func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
 		app.render(w, r, "signup.page.html", &templateData{Form: form})
 		return
 	}
-	// Try to create a new user record in the database. If the email already exists
-	// add an error message to the form and re-display it.
 	err = app.users.Insert(form.Get("name"), form.Get("email"), form.Get("password"))
 	if err != nil {
 		if errors.Is(err, models.ErrDuplicateEmail) {
@@ -113,10 +102,7 @@ func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	// Otherwise add a confirmation flash message to the session confirming that
-	// their signup worked and asking them to log in.
 	app.session.Put(r, "flash", "Your signup was successful. Please log in.")
-	// And redirect the user to the login page.
 	http.Redirect(w, r, "/user/login", http.StatusSeeOther)
 }
 
@@ -149,9 +135,6 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	app.session.Put(r, "authenticatedUserID", id)
-	// Use the PopString method to retrieve and remove a value from the session
-	// data in one step. If no matching key exists this will return the empty
-	// string.
 	path := app.session.PopString(r, "redirectPathAfterLogin")
 	if path != "" {
 		http.Redirect(w, r, path, http.StatusSeeOther)
@@ -161,11 +144,7 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) logoutUser(w http.ResponseWriter, r *http.Request) {
-	// Remove the authenticatedUserID from the session data so that the user is
-	// 'logged out'.
 	app.session.Remove(r, "authenticatedUserID")
-	// Add a flash message to the session to confirm to the user that they've been
-	// logged out.
 	app.session.Put(r, "flash", "You've been logged out successfully!")
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

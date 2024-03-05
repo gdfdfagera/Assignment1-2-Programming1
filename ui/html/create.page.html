@@ -15,24 +15,35 @@
                 <input type='text' name='title' value='{{.Get "title"}}'>
             </div>
             <div>
-                <label>Content:</label>
-                {{with .Errors.Get "content"}}
+                <label>Author:</label>
+                {{with .Errors.Get "author"}}
                     <label class='error'>{{.}}</label>
                 {{end}}
-                <textarea name='content'>{{.Get "content"}}</textarea>
+                <input type='text' name='author' value='{{.Get "author"}}'>
             </div>
             <div>
-                <label>Delete in:</label>
-                {{with .Errors.Get "expires"}}
+                <label>Year:</label>
+                {{with .Errors.Get "year"}}
                     <label class='error'>{{.}}</label>
                 {{end}}
-                {{$exp := or (.Get "expires") "365"}}
-                <input type='radio' name='expires' value='365' {{if (eq $exp "365")}}checked{{end}}> One Year
-                <input type='radio' name='expires' value='7' {{if (eq $exp "7")}}checked{{end}}> One Week
-                <input type='radio' name='expires' value='1' {{if (eq $exp "1")}}checked{{end}}> One Day
+                <input type='text' name='year' value='{{.Get "year"}}'>
             </div>
             <div>
-                <input type='submit' value='Publish snippet'>
+                <label>Genre:</label>
+                {{with .Errors.Get "genre"}}
+                    <label class='error'>{{.}}</label>
+                {{end}}
+                <input type='text' name='genre' value='{{.Get "genre"}}'>
+            </div>
+            <div>
+                <label>Annotation:</label>
+                {{with .Errors.Get "annotation"}}
+                    <label class='error'>{{.}}</label>
+                {{end}}
+                <textarea name='annotation'>{{.Get "annotation"}}</textarea>
+            </div>
+            <div>
+                <input type='submit' value='Publish book'>
             </div>
         {{end}}
     </form>

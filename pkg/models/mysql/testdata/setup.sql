@@ -1,12 +1,13 @@
-CREATE TABLE snippets (
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(100) NOT NULL,
-    content TEXT NOT NULL,
-    created DATETIME NOT NULL,
-    expires DATETIME NOT NULL
+CREATE TABLE book (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    author VARCHAR(255),
+    year INT,
+    genre VARCHAR(255),
+    annotation TEXT
 );
 
-CREATE INDEX idx_snippets_created ON snippets(created);
+CREATE INDEX idx_book_created ON book(created);
 
 CREATE TABLE users (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
