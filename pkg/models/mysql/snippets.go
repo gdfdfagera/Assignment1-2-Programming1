@@ -15,7 +15,6 @@ type SnippetModel struct {
 	DB *sql.DB
 }
 
-// This will insert a new snippet into the database.
 func (m *SnippetModel) Insert(title, author, year, genre, annotation string) (int, error) {
 	stmt := `INSERT INTO book (title, author, year, genre, annotation, created)
 	VALUES(?, ?, ?, ?, ?, UTC_TIMESTAMP())`
@@ -33,10 +32,9 @@ func (m *SnippetModel) Insert(title, author, year, genre, annotation string) (in
 	return int(id), nil
 }
 
-// This will return a specific snippet based on its id.
 func (m *SnippetModel) Get(id int) (*models.Snippet, error) {
-	stmt := `SELECT id, title, author, year, genre, annotation, created FROM book
-WHERE id = ?`
+	stmt := `SELECT book_id, title, author, year, genre, annotation, created FROM book
+WHERE book_id = ?`
 
 	row := m.DB.QueryRow(stmt, id)
 
@@ -55,7 +53,7 @@ WHERE id = ?`
 }
 
 func (m *SnippetModel) Latest() ([]*models.Snippet, error) {
-	stmt := `SELECT id, title, author, year, genre, annotation, created FROM book
+	stmt := `SELECT book_id, title, author, year, genre, annotation, created FROM book
 	ORDER BY created DESC LIMIT 10`
 
 	rows, err := m.DB.Query(stmt)
@@ -81,4 +79,44 @@ func (m *SnippetModel) Latest() ([]*models.Snippet, error) {
 	}
 
 	return snippets, nil
+}
+
+func (m *SnippetModel) Update(id int, title, author, year, genre, annotation string) error {
+	stmt := `UPDATE book SET title=?, author=?, year=?, genre=?, annotation=?, created=UTC_TIMESTAMP() WHERE book_id=?`
+
+	result, err := m.DB.Exec(stmt, title, author, year, genre, annotation, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return models.ErrNoRecord // Indicates that no record was updated (ID not found)
+	}
+
+	return nil
+}
+
+func (m *SnippetModel) Delete(id int) error {
+	stmt := `DELETE FROM book WHERE book_id = ?`
+
+	result, err := m.DB.Exec(stmt, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return models.ErrNoRecord
+	}
+
+	return nil
 }

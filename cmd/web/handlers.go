@@ -70,6 +70,38 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, fmt.Sprintf("/snippet/%d", id), http.StatusSeeOther)
 }
 
+func (app *application) deleteSnippet(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+	form := forms.New(r.PostForm)
+
+	form.Required("title", "author", "year", "genre", "annotation")
+	form.MaxLength("title", 100)
+
+	idString := form.Get("id")
+	id, err := strconv.Atoi(idString)
+	if err != nil {
+		fmt.Println("Error converting id to int:", err)
+		id = 0
+	}
+
+	err = app.snippets.Delete(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+
+	app.session.Put(r, "flash", "Book successfully deleted!")
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
 func (app *application) signupUserForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "signup.page.html", &templateData{
 		Form: forms.New(nil),

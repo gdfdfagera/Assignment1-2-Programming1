@@ -28,6 +28,8 @@ type application struct {
 		Insert(string, string, string, string, string) (int, error)
 		Get(int) (*models.Snippet, error)
 		Latest() ([]*models.Snippet, error)
+		Delete(int) error
+		Update(int, string, string, string, string, string) error
 	}
 	templateCache map[string]*template.Template
 	users         interface {

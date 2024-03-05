@@ -1,20 +1,25 @@
 {{template "base" .}}
 
 {{define "title"}}Snippet #{{.Snippet.ID}}{{end}}
-    
+
 {{define "main"}}
     {{with .Snippet}}
         <div class='snippet'>
             <div class='metadata'>
                 <strong>{{.Title}}</strong>
                 <span>#{{.ID}}</span>
+                <span>Author: {{.Author}}</span>
+                <span>Year: {{.Year}}</span>
+                <span>Genre: {{.Genre}}</span>
             </div>
-            <pre><code>{{.Content}}</code></pre>
+            <pre><code>{{.Annotation}}</code></pre>
             <div class='metadata'>
-                <!-- Use the new template function here -->
                 <time>Created: {{humanDate .Created}}</time>
-                <time>Expires: {{humanDate .Expires}}</time>
             </div>
+            <form method="post" action="/snippet/delete">
+                <input type="hidden" name="id" value="{{.ID}}">
+                <button type="submit">Delete</button>
+            </form>
         </div>
     {{end}}
 {{end}}
