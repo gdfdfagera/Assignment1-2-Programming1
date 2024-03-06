@@ -41,6 +41,73 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (app *application) updateSnippetForm(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
+	if err != nil || id < 1 {
+		app.notFound(w)
+		return
+	}
+	s, err := app.snippets.Get(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+
+	app.render(w, r, "update.page.html", &templateData{
+		Snippet: s,
+		Form:    forms.New(nil),
+	})
+}
+
+func (app *application) updateSnippet(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
+	if err != nil || id < 1 {
+		app.notFound(w)
+		return
+	}
+	s, err := app.snippets.Get(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+
+	err = r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	form := forms.New(r.PostForm)
+	form.Required("title", "author", "year", "genre", "annotation")
+	form.MaxLength("title", 100)
+
+	if !form.Valid() {
+		app.render(w, r, "update.page.html", &templateData{
+			Snippet: s,
+			Form:    form,
+		})
+		return
+	}
+
+	// Update the snippet with the new values from the form
+	err = app.snippets.Update(id, form.Get("title"), form.Get("author"), form.Get("year"), form.Get("genre"), form.Get("annotation"))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.session.Put(r, "flash", "Snippet successfully updated!")
+	http.Redirect(w, r, fmt.Sprintf("/snippet/%d", id), http.StatusSeeOther)
+}
+
 func (app *application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "create.page.html", &templateData{
 		Form: forms.New(nil),
@@ -71,34 +138,19 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) deleteSnippet(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
-		app.clientError(w, http.StatusBadRequest)
+	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
+	if err != nil || id < 1 {
+		app.notFound(w)
 		return
-	}
-	form := forms.New(r.PostForm)
-
-	form.Required("title", "author", "year", "genre", "annotation")
-	form.MaxLength("title", 100)
-
-	idString := form.Get("id")
-	id, err := strconv.Atoi(idString)
-	if err != nil {
-		fmt.Println("Error converting id to int:", err)
-		id = 0
 	}
 
 	err = app.snippets.Delete(id)
 	if err != nil {
-		if errors.Is(err, models.ErrNoRecord) {
-			app.notFound(w)
-		} else {
-			app.serverError(w, err)
-		}
+		app.serverError(w, err)
 		return
 	}
 
-	app.session.Put(r, "flash", "Book successfully deleted!")
+	app.session.Put(r, "flash", "Snippet successfully deleted!")
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
