@@ -16,14 +16,14 @@
             <div class='metadata'>
                 <time>Created: {{humanDate .Created}}</time>
             </div>
-            <form action="/snippet/delete/{{.ID}}" method="POST">
+            <form class="formShow" action="/snippet/delete/{{.ID}}" method="POST">
     {{end}}
                 <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                 <input type="submit" value="Delete">
             </form>
 
     {{with .Snippet}}
-            <form action="/snippet/update/{{.ID}}" method="GET">
+            <form class="formShow" action="/snippet/update/{{.ID}}" method="GET">
     {{end}}
                 <input type="submit" value="Update">
             </form>

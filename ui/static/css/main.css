@@ -111,6 +111,7 @@ button {
 button:hover {
     background-color: #286090;
 }
+
 form {
     width: 400px; /* Adjust the width as needed */
     margin: 0 auto; /* Center the form horizontally */
@@ -176,4 +177,189 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     background-color: #286090;
 }
-/* Add more styles as needed */
+
+#formA {
+    max-width: 200px;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    border: 0 solid #E4E5E7;
+    border-radius: 0;
+}
+
+#formA button{
+    width: 100%;
+    height: 100%;
+}
+
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th, td {
+        text-align: right;
+    }
+
+    td {
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 18px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+}
+
+
+.snippet {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.metadata {
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.metadata strong {
+    font-size: 20px;
+    color: #333;
+}
+
+.metadata span, .metadata time {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+pre {
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: auto;
+}
+
+code {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.formShow {
+    display: inline-block;
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    background-color: #FFFFFF;
+    border: 0 solid #E4E5E7;
+    border-radius: 0;
+}
+
+.formShow button {
+    width: 100%;
+    height: 100%;
+}
+
+input[type="submit"] {
+    width: 100%;
+    height: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+    .snippet {
+        padding: 15px;
+    }
+
+    .metadata strong {
+        font-size: 18px;
+    }
+
+    .metadata span, .metadata time {
+        font-size: 12px;
+    }
+
+    pre {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .metadata span, .metadata time {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

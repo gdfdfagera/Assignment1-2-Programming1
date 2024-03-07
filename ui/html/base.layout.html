@@ -149,7 +149,7 @@
             {{end}}
             {{if .IsAuthenticated}}
             <li><a href='/user/profile'>Profile</a></li>
-                <form action='/user/logout' method='POST'>
+                <form id="formA" action='/user/logout' method='POST'>
                     <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
                     <button>Logout</button>
                 </form>
