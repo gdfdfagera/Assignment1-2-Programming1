@@ -1,167 +1,128 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
-    font-family: "Ubuntu Mono", monospace;
-}
+/* Add these styles to your existing CSS or create a new stylesheet */
 
 html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    line-height: 1.5;
-    background-color: #F1F3F6;
-    color: #34495E;
-    overflow-y: scroll;
+    font-family: 'Arial', sans-serif; /* Replace 'Arial' with your desired font */
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-header, nav, main, footer {
-    padding: 2px calc((100% - 800px) / 2) 0;
-}
 
-main {
-    margin-top: 54px;
-    margin-bottom: 54px;
-    min-height: calc(100vh - 345px);
-    overflow: auto;
+header {
+    background-color: #4b4848;
+    color: #fff;
+    text-align: center;
+    padding: 0;
 }
 
 h1 a {
-    font-size: 36px;
-    font-weight: bold;
-    background-image: url("/static/img/logo.png");
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
-    height: 36px;
-    padding-left: 50px;
-    position: relative;
-}
-
-h1 a:hover {
-    text-decoration: none;
-    color: #34495E;
-}
-
-h2 {
-    font-size: 22px;
-    margin-bottom: 36px;
-    position: relative;
-    top: -9px;
-}
-
-a {
-    color: #62CB31;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #4EB722;
-    text-decoration: underline;
-}
-
-textarea, input:not([type="submit"]) {
-    font-size: 18px;
-    font-family: "Ubuntu Mono", monospace;
-}
-
-header {
-    background-image: -webkit-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
-    background-image: -moz-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
-    background-image: -ms-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
-    background-image: linear-gradient(to right, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
-    background-size: 100% 6px;
-    background-repeat: no-repeat;
-    border-bottom: 1px solid #E4E5E7;
-    overflow: auto;
-    padding-top: 33px;
-    padding-bottom: 27px;
-    text-align: center;
-}
-
-header a {
-    color: #34495E;
+    color: #fff;
     text-decoration: none;
 }
 
 nav {
-    border-bottom: 1px solid #E4E5E7;
-    padding-top: 17px;
-    padding-bottom: 15px;
-    background: #F7F9FA;
-    height: 60px;
-    color: #6A6C6F;
+    background-color: #24252a;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 1em;
 }
 
 nav a {
-    margin-right: 1.5em;
-    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 1em;
+    padding: 0.5em;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #f6f5f5;
 }
 
 nav form {
-    display: inline-block;
-    margin-left: 1.5em;
+    margin: 0;
 }
 
-nav div {
-    width: 50%;
-    float: left;
-}
-
-nav div:last-child {
-    text-align: right;
-}
-
-nav div:last-child a {
-    margin-left: 1.5em;
-    margin-right: 0;
-}
-
-nav a.live {
-    color: #34495E;
-    cursor: default;
-}
-
-nav a.live:hover {
-    text-decoration: none;
-}
-
-nav a.live:after {
-    content: '';
-    display: block;
-    position: relative;
-    left: calc(50% - 7px);
-    top: 9px;
-    width: 14px;
-    height: 14px;
-    background: #F7F9FA;
-    border-left: 1px solid #E4E5E7;
-    border-bottom: 1px solid #E4E5E7;
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(-45deg);
-}
-
-a.button, input[type="submit"] {
-    background-color: #62CB31;
-    border-radius: 3px;
-    color: #FFFFFF;
-    padding: 18px 27px;
+nav button {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 0.5em 1em;
     border: none;
-    display: inline-block;
-    margin-top: 18px;
-    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-a.button:hover, input[type="submit"]:hover {
-    background-color: #4EB722;
-    color: #FFFFFF;
+nav button:hover {
+    background-color: #286090;
+}
+
+main {
+    flex: 1;
+    padding: 2em;
+}
+
+.flash {
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: #d9534f;
+    color: #fff;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 1em 0;
+    background-color: #24252a;
+    color: #fff;
+}
+
+/* Add more styles as needed */
+
+/* Example styles for the create book form */
+form#create-book-form {
+    margin-top: 1em;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Example styles for buttons */
+button {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 3px;
     cursor: pointer;
-    text-decoration: none;
+}
+
+button:hover {
+    background-color: #286090;
+}
+form {
+    width: 400px; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 2em;
+    background-color: #FFFFFF;
+    border: 1px solid #E4E5E7;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 form div {
-    margin-bottom: 18px;
+    margin-bottom: 20px; /* Adjust the margin as needed */
 }
 
 form div:last-child {
@@ -169,145 +130,50 @@ form div:last-child {
 }
 
 form input[type="radio"] {
-    margin-left: 18px;
+    margin-left: 20px; /* Adjust the margin as needed */
 }
 
-form input[type="text"], form input[type="password"], form input[type="email"] {
-    padding: 0.75em 18px;
-    width: 100%;
-}
-
-form input[type=text], form input[type="password"], form input[type="email"], textarea {
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+textarea {
+    padding: 1em;
+    width: calc(100% - 2em); /* Adjust the padding and width as needed */
+    font-size: 16px; /* Adjust the font size as needed */
     color: #6A6C6F;
     background: #FFFFFF;
     border: 1px solid #E4E5E7;
-    border-radius: 3px;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="email"]:focus,
+textarea:focus {
+    border-color: #337ab7; /* Highlight border color on focus */
 }
 
 form label {
     display: inline-block;
-    margin-bottom: 9px;
-}
-
-.error {
-    color: #C0392B;
+    margin-bottom: 10px; /* Adjust the margin as needed */
     font-weight: bold;
-    display: block;
+    color: #555;
 }
 
-.error + textarea, .error + input {
-    border-color: #C0392B !important;
-    border-width: 2px !important;
-}
-
-textarea {
-    padding: 18px;
-    width: 100%;
-    height: 266px;
-}
-
-button {
-    background: none;
-    padding: 0;
+form input[type="submit"] {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 0.75em 1.5em; /* Adjust padding as needed */
     border: none;
-    color: #62CB31;
-    text-decoration: none;
-}
-
-button:hover {
-    color: #4EB722;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.snippet {
-    background-color: #FFFFFF;
-    border: 1px solid #E4E5E7;
     border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px; /* Adjust font size as needed */
+    transition: background-color 0.3s ease;
 }
 
-.snippet pre {
-    padding: 18px;
-    border-top: 1px solid #E4E5E7;
-    border-bottom: 1px solid #E4E5E7;
+form input[type="submit"]:hover {
+    background-color: #286090;
 }
-
-.snippet .metadata {
-    background-color: #F7F9FA;
-    color: #6A6C6F;
-    padding: 0.75em 18px;
-    overflow: auto;
-}
-
-.snippet .metadata span {
-    float: right;
-}
-
-.snippet .metadata strong {
-    color: #34495E;
-}
-
-.snippet .metadata time {
-    display: inline-block;
-}
-
-.snippet .metadata time:first-child {
-    float: left;
-}
-
-.snippet .metadata time:last-child {
-    float: right;
-}
-
-div.flash {
-    color: #FFFFFF;
-    font-weight: bold;
-    background-color: #34495E;
-    padding: 18px;
-    margin-bottom: 36px;
-    text-align: center;
-}
-
-div.error {
-    color: #FFFFFF;
-    background-color: #C0392B;
-    padding: 18px;
-    margin-bottom: 36px;
-    font-weight: bold;
-    text-align: center;
-}
-
-table {
-    background: white;
-    border: 1px solid #E4E5E7;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    text-align: left;
-    padding: 9px 18px;
-}
-
-th:last-child, td:last-child {
-    text-align: right;
-    color: #6A6C6F;
-}
-
-tr {
-    border-bottom: 1px solid #E4E5E7;
-}
-
-tr:nth-child(2n) {
-    background-color: #F7F9FA;
-}
-
-footer {
-    border-top: 1px solid #E4E5E7;
-    padding-top: 17px;
-    padding-bottom: 15px;
-    background: #F7F9FA;
-    height: 60px;
-    color: #6A6C6F;
-    text-align: center;
-}
+/* Add more styles as needed */

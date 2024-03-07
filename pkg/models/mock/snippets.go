@@ -6,11 +6,11 @@ import (
 )
 
 var mockSnippet = &models.Snippet{
-	ID:      1,
-	Title:   "An old silent pond",
-	Content: "An old silent pond...",
-	Created: time.Now(),
-	Expires: time.Now(),
+	ID:         1,
+	Title:      "An old silent pond",
+	Annotation: "An old silent pond...",
+	Author:     "An old silent pond...",
+	Created:    time.Now(),
 }
 
 type SnippetModel struct{}

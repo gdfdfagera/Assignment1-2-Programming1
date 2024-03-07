@@ -192,7 +192,6 @@ func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) about(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "about.page.html", nil)
-	app.render(w, r, "about.page.html", nil)
 }
 
 func (app *application) loginUserForm(w http.ResponseWriter, r *http.Request) {
@@ -212,7 +211,7 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if errors.Is(err, models.ErrInvalidCredentials) {
 			form.Errors.Add("generic", "Email or Password is incorrect")
-			app.render(w, r, "login.page.tmpl", &templateData{Form: form})
+			app.render(w, r, "login.page.html", &templateData{Form: form})
 		} else {
 			app.serverError(w, err)
 		}
